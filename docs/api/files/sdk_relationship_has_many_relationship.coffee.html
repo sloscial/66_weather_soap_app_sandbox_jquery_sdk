@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>sdk/relationship/has_many_relationship.coffee - WeatherSoapApp</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="WeatherSoapApp"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AggregateCollection.html">AggregateCollection</a></li>
+            
+                <li><a href="../classes/Application.html">Application</a></li>
+            
+                <li><a href="../classes/Authentication.html">Authentication</a></li>
+            
+                <li><a href="../classes/Authorization.html">Authorization</a></li>
+            
+                <li><a href="../classes/Base64.html">Base64</a></li>
+            
+                <li><a href="../classes/BelongsTo.html">BelongsTo</a></li>
+            
+                <li><a href="../classes/Collection.html">Collection</a></li>
+            
+                <li><a href="../classes/Collections.html">Collections</a></li>
+            
+                <li><a href="../classes/Cookie.html">Cookie</a></li>
+            
+                <li><a href="../classes/HasMany.html">HasMany</a></li>
+            
+                <li><a href="../classes/HasOne.html">HasOne</a></li>
+            
+                <li><a href="../classes/MockServer.html">MockServer</a></li>
+            
+                <li><a href="../classes/Model.html">Model</a></li>
+            
+                <li><a href="../classes/Models.html">Models</a></li>
+            
+                <li><a href="../classes/Relationship.html">Relationship</a></li>
+            
+                <li><a href="../classes/ScopeCollection.html">ScopeCollection</a></li>
+            
+                <li><a href="../classes/Url.html">Url</a></li>
+            
+                <li><a href="../classes/Validator.html">Validator</a></li>
+            
+                <li><a href="../classes/WeatherByZip.html">WeatherByZip</a></li>
+            
+                <li><a href="../classes/WeatherByZipAll.html">WeatherByZipAll</a></li>
+            
+                <li><a href="../classes/WeatherByZipCount.html">WeatherByZipCount</a></li>
+            
+                <li><a href="../classes/WeatherByZipCountExactMatch.html">WeatherByZipCountExactMatch</a></li>
+            
+                <li><a href="../classes/WeatherByZipExactMatch.html">WeatherByZipExactMatch</a></li>
+            
+                <li><a href="../classes/WeatherSoapAppSdk.html">WeatherSoapAppSdk</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/AP.html">AP</a></li>
+            
+                <li><a href="../modules/auth.html">auth</a></li>
+            
+                <li><a href="../modules/collection.html">collection</a></li>
+            
+                <li><a href="../modules/collections.html">collections</a></li>
+            
+                <li><a href="../modules/MockServer.html">MockServer</a></li>
+            
+                <li><a href="../modules/model.html">model</a></li>
+            
+                <li><a href="../modules/models.html">models</a></li>
+            
+                <li><a href="../modules/relationship.html">relationship</a></li>
+            
+                <li><a href="../modules/utility.html">utility</a></li>
+            
+                <li><a href="../modules/WeatherSoapAppSdk.html">WeatherSoapAppSdk</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: sdk/relationship/has_many_relationship.coffee</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+###*
+A has-many relationship is one where the owner model instance is related to
+any number of related instances.  In this scheme, the relationship
+information is stored in a foreign key on the related instance(s).  The related
+instances are stored in the {@link #collection} on a generated field
+{@link #name} once fetched.
+
+Relationships should not be instantiated directly.  Please see
+{@link AP.model.Model#relationshipDefinitions} for more information on
+declaring relationships.
+
+@module AP
+@submodule relationship
+@class HasMany
+@extends AP.relationship.Relationship
+###
+class AP.relationship.HasMany extends AP.relationship.Relationship
+  initialize: -&gt;
+    super
+    @listenTo @collection, &quot;reset&quot;, @onCollectionReset
+    @listenTo @collection, &quot;change:#{@foreignKey}&quot;, @onRelatedInstanceForeignKeyChange
+  
+  ###*
+  Sets the {@link #foreignKey} of the related instance to the ID of the owner
+  instance when added to the collection.  Triggers a change event on the
+  generated relationship field {@link #name}.
+  @method onCollectionAdd
+  @param {Object} record the added model instance
+  ###
+  onCollectionAdd: (record) -&gt;
+    record.set @foreignKey, @owner.get(@owner.idAttribute)
+    @owner.trigger &quot;change:#{@name}&quot;
+  
+  ###*
+  Unset the {@link #foreignKey} of the related instance when removed from
+  the collection.  Triggers a change event on the generated relationship
+  field {@link #name}.
+  @method onCollectionRemove
+  @param {Object} record the removed model instance
+  ###
+  onCollectionRemove: (record) -&gt;
+    if record.get(@foreignKey) == @owner.get(@owner.idAttribute)
+      record.set @foreignKey, null
+    @owner.trigger &quot;change:#{@name}&quot;
+  
+  ###*
+  Triggers a change event on the generated relationship field {@link #name} when
+  the collection is reset.  See {@link #filterCollection}.
+  @method onCollectionReset
+  ###
+  onCollectionReset: -&gt; @owner.trigger &quot;change:#{@name}&quot;
+  
+  ###*
+  Calls {@link #filterCollection} whenever the foreign key field of a related
+  instance is changed.
+  @method onRelatedInstanceForeignKeyChange
+  ###
+  onRelatedInstanceForeignKeyChange: -&gt; @filterCollection()
+  
+  ###*
+  Removes any stale related instances from the collection.  Stale instances are
+  instances with foreign keys that no longer refer to the owner instance.
+  See {@link #onCollectionReset}.
+  @method filterCollection
+  ###
+  filterCollection: -&gt;
+    whereClause = {}
+    whereClause[@foreignKey] = @owner.get(@owner.idAttribute)
+    filtered = @collection.where(whereClause)
+    @collection.reset filtered, {reset: true}
+  
+  ###*
+  Returns the default value of the generated field {@link #name}.  For many-to-
+  many relationships, the value is always the {@link #collection} instance.
+  @method getDefault
+  @return {AP.collection.Collection} the collection instance declared
+  by {@link #collection}.
+  ###
+  getDefault: -&gt; @collection
+  
+  ###*
+  Returns a query used to obtain the related instances from the server.
+  @method getQuery
+  @return {Object} parameters used to query server for the related instances
+  ###
+  getQuery: -&gt;
+    query = super
+    query[@foreignKey] = @owner.get(@owner.idAttribute)
+    query
+  
+  ###*
+  Querys the server for related instances.
+  @method fetch
+  @param {Function} callback function executed upon query success; called with
+  one argument:  the collection of related instances
+  ###
+  fetch: (callback) -&gt;
+    @collection.query @getQuery(),
+      reset: true
+      success: =&gt; callback(@owner, @collection) if _.isFunction(callback)
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
