@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>sdk/utility/validator.coffee - WeatherSoapApp</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="WeatherSoapApp"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AggregateCollection.html">AggregateCollection</a></li>
+            
+                <li><a href="../classes/Application.html">Application</a></li>
+            
+                <li><a href="../classes/Authentication.html">Authentication</a></li>
+            
+                <li><a href="../classes/Authorization.html">Authorization</a></li>
+            
+                <li><a href="../classes/Base64.html">Base64</a></li>
+            
+                <li><a href="../classes/BelongsTo.html">BelongsTo</a></li>
+            
+                <li><a href="../classes/Collection.html">Collection</a></li>
+            
+                <li><a href="../classes/Collections.html">Collections</a></li>
+            
+                <li><a href="../classes/Cookie.html">Cookie</a></li>
+            
+                <li><a href="../classes/HasMany.html">HasMany</a></li>
+            
+                <li><a href="../classes/HasOne.html">HasOne</a></li>
+            
+                <li><a href="../classes/MockServer.html">MockServer</a></li>
+            
+                <li><a href="../classes/Model.html">Model</a></li>
+            
+                <li><a href="../classes/Models.html">Models</a></li>
+            
+                <li><a href="../classes/Relationship.html">Relationship</a></li>
+            
+                <li><a href="../classes/ScopeCollection.html">ScopeCollection</a></li>
+            
+                <li><a href="../classes/Url.html">Url</a></li>
+            
+                <li><a href="../classes/Validator.html">Validator</a></li>
+            
+                <li><a href="../classes/WeatherByZip.html">WeatherByZip</a></li>
+            
+                <li><a href="../classes/WeatherByZipAll.html">WeatherByZipAll</a></li>
+            
+                <li><a href="../classes/WeatherByZipCount.html">WeatherByZipCount</a></li>
+            
+                <li><a href="../classes/WeatherByZipCountExactMatch.html">WeatherByZipCountExactMatch</a></li>
+            
+                <li><a href="../classes/WeatherByZipExactMatch.html">WeatherByZipExactMatch</a></li>
+            
+                <li><a href="../classes/WeatherSoapAppSdk.html">WeatherSoapAppSdk</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/AP.html">AP</a></li>
+            
+                <li><a href="../modules/auth.html">auth</a></li>
+            
+                <li><a href="../modules/collection.html">collection</a></li>
+            
+                <li><a href="../modules/collections.html">collections</a></li>
+            
+                <li><a href="../modules/MockServer.html">MockServer</a></li>
+            
+                <li><a href="../modules/model.html">model</a></li>
+            
+                <li><a href="../modules/models.html">models</a></li>
+            
+                <li><a href="../modules/relationship.html">relationship</a></li>
+            
+                <li><a href="../modules/utility.html">utility</a></li>
+            
+                <li><a href="../modules/WeatherSoapAppSdk.html">WeatherSoapAppSdk</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: sdk/utility/validator.coffee</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+###*
+Provides an extensible facility for validating arbitrary data.  While validator
+is used primarily by {@link AP.model.Model}, it may be used to
+validate any data object.
+
+Subclass validator to implement additional validation types.  Built-in
+validation types include:
+
+- &#x60;required&#x60;:  field must have a non-null value
+- &#x60;type&#x60;:  field type is consistent with the type specified in &#x60;is&#x60;
+
+Example usage:
+@example
+    validator = new AP.utility.Validator();
+    validator.data = {
+      name: &#x27;John Doe&#x27;,
+      age: 46
+    };
+    validator.validations = [{
+      field: &#x27;name&#x27;,
+      validate: &#x27;required&#x27;
+    }, {
+      field: &#x27;age&#x27;,
+      validate: &#x27;type&#x27;,
+      is: &#x27;integer&#x27;
+    }];
+
+    validator.validate();
+    // true
+    validator.data.age = null;
+    validator.validate();
+    // true
+    // age is not required:  although &quot;null&quot; is not an integer, it is valid
+    // because the type validator ignores null values.
+    
+    validator.data.name = &#x27;&#x27;;
+    validator.validate();
+    // false
+
+@module AP
+@submodule utility
+@class Validator
+###
+class AP.utility.Validator
+  ###*
+  Internal errors array.  If the errors array contains any errors then the
+  validator is considered to be in an invalid state.
+  @private
+  @property _errors
+  @type Object[]
+  ###
+  _errors: []
+  
+  ###*
+  Internal hash of error messages.  Each key is an error type where its value
+  is an error message string.
+  @private
+  @property _errorMessages
+  @type Object
+  ###
+  _errorMessages: {
+    required: &#x27;this field is required&#x27;
+    
+    numericality: &#x27;this field must resemble a number&#x27;
+    
+    booleanType: &#x27;this field must be a boolean&#x27;
+    stringType: &#x27;this field must be a string&#x27;
+    numberType: &#x27;this field must be a number&#x27;
+    integer: &#x27;this field must be an integer&#x27;
+    float: &#x27;this field must be a float&#x27;
+    
+    missingType: &#x27;this field cannot be validated as type {0}&#x27;
+  }
+  
+  ###*
+  The data object to validate.
+  @property data
+  @type Object
+  ###
+  data: {}
+  
+  ###*
+  A list of validations to apply.  Validations is an array of validation
+  configuration objects.  Validation configuration objects must contain at least
+  the following members:
+  
+  - &#x60;field&#x60;:  a key in the {@link #data} object
+  - &#x60;validate&#x60;:  a string reprenting the validation type
+  
+  Certain validations may require additional information.  For example, the
+  &#x60;type&#x60; validation requires an &#x60;is&#x60; member, the data type.
+  
+  For example:
+  @example
+      [
+        field: &#x27;name&#x27;
+        validate: &#x27;required&#x27;
+      ,
+        field: &#x27;amount&#x27;
+        validate: &#x27;numericality&#x27;
+      ,
+        field: &#x27;age&#x27;
+        validate: &#x27;type&#x27;
+        is: &#x27;integer&#x27;
+      ]
+  
+  @property validations
+  @type Object[]
+  ###
+  validations: []
+  
+  constructor: (@data, @validations) -&gt;
+    @_errors = []
+    @data = _.clone(@data)
+    @validations = _.clone(@validations)
+  
+  ###*
+  Returns true if the validator has no errors.  **Note**:  {@link #validate}
+  should be executed before calling &#x60;isValid&#x60;.  Always returns &#x60;true&#x60; if
+  executed before &#x60;validate&#x60;.
+  @method isValid
+  @return {Boolean} &#x60;true&#x60; if there 
+  ###
+  isValid: -&gt; !@errors().length
+  
+  ###*
+  Applies the validations specified in {@link #validations} to {@link #data},
+  clearing any existing errors first.
+  @method validate
+  @return {Boolean} the return value of {@link #isValid}.
+  ###
+  validate: -&gt;
+    @_errors = []
+    for validation in @validations
+      if @[validation.validate]
+        @[validation.validate](@data[validation.field], validation)
+    @isValid()
+  
+  ###*
+  Adds an error of &#x60;type&#x60; for field &#x60;fieldName&#x60; to the validator where &#x60;type&#x60; is
+  a key in the internal {@link #_errorMessages error messages hash}.  Additional
+  data may be passed as an array via &#x60;extra&#x60; which is interpolated into the
+  error message.
+  @method addError
+  @param {String} fieldName the field to which the error applies
+  @param {String} type the error type, corresponding to a key in the internal
+  error messages hash.
+  @param {String[]} [extra] optional array of strings to be interpolated into
+  the error message
+  ###
+  addError: (fieldName, type, extra) -&gt;
+    message = @_errorMessages[type] or &#x27;is invalid&#x27;
+    if extra
+      for value, i in extra
+        message = message.replace(&quot;{#{i}}&quot;, value)
+    @_errors.push
+      field: fieldName
+      message: message
+  
+  ###*
+  Returns the internal errors array.
+  @method errors
+  @return {String[]} the internal errors array.
+  ###
+  errors: -&gt; @_errors
+  
+  ###*
+  Validates that the value is non-null.  If null or undefined, adds an error.
+  @method required
+  @param value the value to validate
+  @param {Object} options a validation configuration object, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;required&#x27;}
+  ###
+  required: (value, options) -&gt;
+    if value == null or value == undefined
+      @addError(options.field, &#x27;required&#x27;)
+  
+  ###*
+  Validates that the value looks like a number.  The value is allowed to be
+  either a strict string or number type, as long as it looks like a number.
+  @method numericality
+  @param value the value to valiate as numerical
+  @param {Object} options a validation configuration object, for example:
+      {field: &#x27;amount&#x27;, validate: &#x27;numericality&#x27;}
+  ###
+  numericality: (value, options) -&gt;
+    @addError(options.field, &#x27;numericality&#x27;) if value? and !value.toString().match /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/
+  
+  ###*
+  Validates that the value is of a specified type.  Adds an error if the value
+  is not of the specified type.
+  @method type
+  @param value the value to validate
+  @param {Object} options a validation configuration object with an extra &#x60;is&#x60;
+  member to specify type, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;type&#x27;, is: &#x27;string&#x27;}
+  ###
+  type: (value, options) -&gt;
+    type = options.is.toLowerCase()
+    if @[&quot;#{type}Type&quot;]
+      @[&quot;#{type}Type&quot;](value, options)
+    else
+      @addError options.field, &#x27;missingType&#x27;, [type]
+  
+  ###*
+  Validates that &#x60;value&#x60; is a boolean.  Adds an error if &#x60;value&#x60; is present but
+  not of type boolean.
+  @method booleanType
+  @param value the value to validate
+  @param {Object} options a validation configuration object with an extra &#x60;is&#x60;
+  member to specify type, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;type&#x27;, is: &#x27;boolean&#x27;}
+  ###
+  booleanType: (value, options) -&gt; @addError(options.field, &#x27;booleanType&#x27;) if (((typeof value) != &#x27;boolean&#x27;) and (value != null and value != undefined))
+  
+  ###*
+  Validates that &#x60;value&#x60; is a string.  Adds an error if &#x60;value&#x60; is present but
+  not of type string.
+  @method stringType
+  @param value the value to validate
+  @param {Object} options a validation configuration object with an extra &#x60;is&#x60;
+  member to specify type, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;type&#x27;, is: &#x27;string&#x27;}
+  ###
+  stringType: (value, options) -&gt; @addError(options.field, &#x27;stringType&#x27;) if (((typeof value) != &#x27;string&#x27;) and  (value != null and value != undefined))
+  
+  ###*
+  Validates that &#x60;value&#x60; is a number.  Adds an error if &#x60;value&#x60; is present but
+  not of type number.
+  @method numberType
+  @param value the value to validate
+  @param {Object} options a validation configuration object with an extra &#x60;is&#x60;
+  member to specify type, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;type&#x27;, is: &#x27;number&#x27;}
+  ###
+  numberType: (value, options) -&gt; @addError(options.field, &#x27;numberType&#x27;) if (((typeof value) != &#x27;number&#x27;) and  (value != null and value != undefined))
+  
+  ###*
+  Validates that &#x60;value&#x60; is a number.  Adds an error if &#x60;value&#x60; is present but
+  not of type number.
+  @method floatType
+  @param value the value to validate
+  @param {Object} options a validation configuration object with an extra &#x60;is&#x60;
+  member to specify type, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;type&#x27;, is: &#x27;float&#x27;}
+  ###
+  floatType: (value, options) -&gt; @addError(options.field, &#x27;floatType&#x27;) if (((typeof value) != &#x27;number&#x27;) and  (value != null and value != undefined))
+  
+  ###*
+  Validates that &#x60;value&#x60; is a whole number.  Adds an error if &#x60;value&#x60; is present
+  but not of a whole number.
+  @method integerType
+  @param value the value to validate
+  @param {Object} options a validation configuration object with an extra &#x60;is&#x60;
+  member to specify type, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;type&#x27;, is: &#x27;integer&#x27;}
+  ###
+  integerType: (value, options) -&gt;
+    if (value != null and value != undefined)
+      if !(((typeof value) == &#x27;number&#x27;) and (value.toString().indexOf(&#x27;.&#x27;) == -1))
+        @addError options.field, &#x27;integerType&#x27;
+  
+  ###*
+  **UNIMPLEMENTED***
+  Validates that &#x60;value&#x60; is a data.
+  @method dateType
+  @beta
+  @param value the value to validate
+  @param {Object} options a validation configuration object with an extra &#x60;is&#x60;
+  member to specify type, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;type&#x27;, is: &#x27;date&#x27;}
+  ###
+  dateType: (value, options) -&gt;
+    # TODO
+  
+  ###*
+  **UNIMPLEMENTED***
+  Validates that &#x60;value&#x60; is a time.
+  @method timeType
+  @beta
+  @param value the value to validate
+  @param {Object} options a validation configuration object with an extra &#x60;is&#x60;
+  member to specify type, for example:
+      {field: &#x27;title&#x27;, validate: &#x27;type&#x27;, is: &#x27;time&#x27;}
+  ###
+  timeType: (value, options) -&gt;
+    # TODO
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
