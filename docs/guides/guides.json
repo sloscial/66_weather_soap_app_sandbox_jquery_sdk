@@ -1,0 +1,39 @@
+[
+  {
+    "name": "getting_started_guides",
+    "title": "Getting Started Guides",
+    "items": [
+      {
+        "name": "getting_started_by_example",
+        "title": "Getting Started by Example",
+        "description": "A brief, informal guide to getting started with the JavaScript SDK."
+      },
+      {
+        "name": "working_with_collections",
+        "title": "Working with Collections",
+        "description": "Getting started with collections, the primary point of data access to the."
+      },
+      {
+        "name": "working_with_models",
+        "title": "Working with Models",
+        "description": "Getting started with models to manage data."
+      },
+      {
+        "name": "authentication_and_authorization",
+        "title": "Authentication & Authorization",
+        "description": "Getting started with auth."
+      }
+    ]
+  },
+  {
+    "name": "offline_apps",
+    "title": "Offline Apps",
+    "items": [
+      {
+        "name": "offline_data_caching",
+        "title": "Caching Data for Offline Viewing",
+        "description": "Learn about the built-in offline data caching system."
+      }
+    ]
+  }
+]
