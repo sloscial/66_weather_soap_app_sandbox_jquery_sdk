@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ title }} | {{ section_title }} | SDK Documentation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+</head>
+<body>
+  <!--[if lt IE 8]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>
+        <small>SDK Documentation - {{ section_title }}</small>
+        <br>
+        {{ title }}
+      </h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <ol class="breadcrumb">
+          <li><a href="../../../index.html">Home</a></li>
+          <li class="active">{{ section_title }}</li>
+          <li class="active">{{ title }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        {{{ content }}}
+      </div>
+    </div>
+    
+    <hr>
+  </div>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>
