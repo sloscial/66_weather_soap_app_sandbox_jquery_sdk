@@ -1,0 +1,75 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+
+  <!-- dependencies -->
+  <link rel="stylesheet" type="text/css" href="../node_modules/grunt-mocha-phantomjs/node_modules/mocha-phantomjs/node_modules/mocha/mocha.css">
+  <script src="../sdk/lib/jquery/jquery-1.9.1.js"></script>
+  <script src="../sdk/lib/underscore/underscore.js"></script>
+  <script src="../sdk/lib/backbone/backbone.js"></script>
+  <!--<script src="lib/mocha/mocha.js"></script>-->
+  <script src="../node_modules/grunt-mocha-phantomjs/node_modules/mocha-phantomjs/node_modules/mocha/mocha.js"></script>
+  <script src="lib/chai/chai.js"></script>
+  <script src="lib/sinon/sinon-1.4.2.js"></script>
+
+  <!-- sdk -->
+  <script src="../ap_sdk.js"></script>
+
+  <!-- setup -->
+  <script>
+    AP.useMockServer = true;
+    AP.useOfflineCache = true;
+    WeatherSoapAppSdk.init();
+    mocha.setup({
+      ui: 'bdd',
+      ignoreLeaks: true
+    });
+  </script>
+
+  <!-- collection tests -->
+  
+  
+  <script src="collections/weather_by_zip_all.js"></script>
+  
+  <script src="collections/weather_by_zip_exact_match.js"></script>
+  
+  <script src="collections/weather_by_zip_count.js"></script>
+  
+  <script src="collections/weather_by_zip_count_exact_match.js"></script>
+  
+  
+
+  <!-- model tests -->
+  
+  <script src="models/weather_by_zip.js"></script>
+  
+
+  <!-- framework tests -->
+  <script src="ap.js"></script>
+  <script src="base64.js"></script>
+  <script src="cookie.js"></script>
+  <script src="validator.js"></script>
+  <script src="authentication.js"></script>
+  <script src="authorization.js"></script>
+  <script src="application.js"></script>
+  <script src="model.js"></script>
+  <script src="collection.js"></script>
+  <script src="scope_collection.js"></script>
+  <script src="relationship.js"></script>
+
+  <!-- run -->
+  <script>
+    $(function () {
+      if (window.mochaPhantomJS) {
+        mochaPhantomJS.run();
+      } else {
+        mocha.run();
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="mocha"></div>
+</body>
+</html>

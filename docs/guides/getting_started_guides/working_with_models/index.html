@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Working with Models | Getting Started Guides | SDK Documentation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+</head>
+<body>
+  <!--[if lt IE 8]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>
+        <small>SDK Documentation - Getting Started Guides</small>
+        <br>
+        Working with Models
+      </h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <ol class="breadcrumb">
+          <li><a href="../../../index.html">Home</a></li>
+          <li class="active">Getting Started Guides</li>
+          <li class="active">Working with Models</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <p>A model instance represents a single record.  Additionally, models validate data, encapsulate CRUD logic, and much more.  See the <a href="http://backbonejs.org/#Model">Backbone.js model documentation</a> for additional information.</p>
+
+<h2>Working with Model Instances</h2>
+
+<p>Models are easy to work with.  Model instances may be created and saved in two ways.</p>
+
+<pre><code>// Create a new model instance and save it
+instance = new AppSdk.models.Object
+  name: &#39;Test&#39;
+  phone: &#39;0000&#39;
+instance.save() // fires a POST request
+
+// Create a new model instance within a collection
+// Model instances created in this manner are saved immediately
+collection = new AppSdk.collections.ObjectAll()
+instance = collection.create({name: &#39;Test&#39;, phone: &#39;0000&#39;})</code></pre>
+
+<p>Updating (PUT) model instances uses almost the same syntax.  Deleting records (DELETE) is equally simple.</p>
+
+<pre><code>// Update a model instance and save it
+instance.set(&#39;name&#39;, &#39;Services&#39;)
+instance.save()
+
+// Delete instance
+instance.delete()</code></pre>
+
+<p>Most CRUD methods accept callbacks.</p>
+
+<pre><code>instance.save null,
+  success: -&gt; alert(&#39;success&#39;)
+  error: -&gt; alert(&#39;FAIL!&#39;)
+
+instance.delete
+  success: -&gt; alert(&#39;success&#39;)
+  error: -&gt; alert(&#39;FAIL!&#39;)</code></pre>
+
+<p>Whenever an action is taken on a model instance, an event is fired.  Event handlers are easy to setup.</p>
+
+<pre><code>instance.on &#39;change&#39;, -&gt;
+  alert &#39;something changed!&#39;
+
+instance.on &#39;change:title&#39;, -&gt;
+  alert &#39;title changed!&#39;</code></pre>
+
+<h2>Define a Model Class in CoffeeScript</h2>
+
+<pre><code>class AppSdk.models.MyModel extends AP.model.Model</code></pre>
+      </div>
+    </div>
+    
+    <hr>
+  </div>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>
