@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>sdk/auth/authentication.coffee - WeatherSoapApp</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="WeatherSoapApp"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AggregateCollection.html">AggregateCollection</a></li>
+            
+                <li><a href="../classes/Application.html">Application</a></li>
+            
+                <li><a href="../classes/Authentication.html">Authentication</a></li>
+            
+                <li><a href="../classes/Authorization.html">Authorization</a></li>
+            
+                <li><a href="../classes/Base64.html">Base64</a></li>
+            
+                <li><a href="../classes/BelongsTo.html">BelongsTo</a></li>
+            
+                <li><a href="../classes/Collection.html">Collection</a></li>
+            
+                <li><a href="../classes/Collections.html">Collections</a></li>
+            
+                <li><a href="../classes/Cookie.html">Cookie</a></li>
+            
+                <li><a href="../classes/GetCityWeatherByZip.html">GetCityWeatherByZip</a></li>
+            
+                <li><a href="../classes/GetCityWeatherByZipAll.html">GetCityWeatherByZipAll</a></li>
+            
+                <li><a href="../classes/GetCityWeatherByZipCount.html">GetCityWeatherByZipCount</a></li>
+            
+                <li><a href="../classes/GetCityWeatherByZipCountExactMatch.html">GetCityWeatherByZipCountExactMatch</a></li>
+            
+                <li><a href="../classes/GetCityWeatherByZipExactMatch.html">GetCityWeatherByZipExactMatch</a></li>
+            
+                <li><a href="../classes/HasMany.html">HasMany</a></li>
+            
+                <li><a href="../classes/HasOne.html">HasOne</a></li>
+            
+                <li><a href="../classes/MockServer.html">MockServer</a></li>
+            
+                <li><a href="../classes/Model.html">Model</a></li>
+            
+                <li><a href="../classes/Models.html">Models</a></li>
+            
+                <li><a href="../classes/Relationship.html">Relationship</a></li>
+            
+                <li><a href="../classes/ScopeCollection.html">ScopeCollection</a></li>
+            
+                <li><a href="../classes/Url.html">Url</a></li>
+            
+                <li><a href="../classes/Validator.html">Validator</a></li>
+            
+                <li><a href="../classes/WeatherSoapAppSdk.html">WeatherSoapAppSdk</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/AP.html">AP</a></li>
+            
+                <li><a href="../modules/auth.html">auth</a></li>
+            
+                <li><a href="../modules/collection.html">collection</a></li>
+            
+                <li><a href="../modules/collections.html">collections</a></li>
+            
+                <li><a href="../modules/MockServer.html">MockServer</a></li>
+            
+                <li><a href="../modules/model.html">model</a></li>
+            
+                <li><a href="../modules/models.html">models</a></li>
+            
+                <li><a href="../modules/relationship.html">relationship</a></li>
+            
+                <li><a href="../modules/utility.html">utility</a></li>
+            
+                <li><a href="../modules/WeatherSoapAppSdk.html">WeatherSoapAppSdk</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: sdk/auth/authentication.coffee</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+AP.auth ?= {}
+
+
+###*
+Provides methods for user authentication and deauthentication.
+
+To login (Coffeescript):
+@example
+    AP.auth.Authentication.login
+      username: &#x27;johndoe&#x27;
+      password: &#x27;doe123&#x27;
+    
+    AP.auth.Authentication.isAuthenticated()
+    # true
+
+To logout:
+@example
+    AP.auth.Authentication.logout()
+    
+    AP.auth.Authentication.isAuthenticated()
+    # false
+
+@module AP
+@submodule auth
+@class Authentication
+@static
+###
+class AP.auth.Authentication
+  _.extend @, Backbone.Events
+  
+  # if server ever responds with 401, assume the session expired
+  $.ajaxSetup
+    complete: _.debounce ((xhr, result) =&gt; @destroySession() if xhr.status == 401 and result == &#x27;error&#x27;), 150
+  
+  
+  
+  ###*
+  Custom header to send/retrieve the session ID when using CORS.
+  @private
+  @property _authSessionIdHeaderName
+  @type String
+  ###
+  @_authSessionIdHeaderName: &#x27;X-Session-Id&#x27;
+  
+  ###*
+  Transient storage instance for persisting session data.
+  @private
+  @property store
+  @type AP.utility.TransientStore
+  ###
+  @store: if AP.utility.TransientLocalStore.supported then new AP.utility.TransientLocalStore(namespace: &#x27;ap-auth&#x27;) else new AP.utility.TransientCookieStore(namespace: &#x27;ap-auth&#x27;)
+  
+  ###*
+  Executes login request with passed &#x60;credentials&#x60;.
+  @method login
+  @static
+  @param {Object} credentials the user credentials
+  ###
+  @login: (credentials) -&gt;
+    if !@isAuthenticated()
+      @authenticate credentials
+  
+  ###*
+  Executes logout request.
+  @method logout
+  @static
+  ###
+  @logout: -&gt;
+    if @isAuthenticated()
+      @deauthenticate()
+  
+  ###*
+  @method isAuthenticatable
+  @static
+  @return {Boolean} &#x60;true&#x60; if authentication is enabled
+  ###
+  @isAuthenticatable: -&gt; !!@authenticationSettings
+  
+  ###*
+  @method isAuthenticated
+  @static
+  @return {Boolean} &#x60;true&#x60; if a user is logged-in
+  ###
+  @isAuthenticated: -&gt; !!(@getAuthSessionData() and @getAuthSessionId())
+  
+  ###*
+  Performs authentication request with HTTP basic auth.  Upon a successful
+  login the user object returned by the API is stored for later use.
+  @method authenticate
+  @static
+  @param {Object} credentials user credentials object, for example:
+  &#x60;{&quot;username&quot;: &quot;johndoe&quot;, &quot;password&quot;: &quot;doe123&quot;}&#x60;.
+  ###
+  @authenticate: (credentials) -&gt;
+    AP = window.AP
+    settings = @getAuthenticationSettings()
+    $.ajax
+      url: settings.authentication_url #+ &#x27;.json&#x27;
+      type: &#x27;POST&#x27;
+      dataType: &#x27;json&#x27;
+      data: credentials
+      beforeSend: (request, settings) =&gt;
+        baseUrl = AP.utility.Url.parseUrl AP.baseUrl
+        requestUrl = AP.utility.Url.parseUrl settings.url
+        hasNoRequestServer = !(requestUrl.host and requestUrl.protocol)
+        isRequestUrlSameAsBaseUrlServer =
+          (
+            (baseUrl.protocol == requestUrl.protocol) and
+            (baseUrl.host == requestUrl.host) and
+            (baseUrl.port == requestUrl.port)
+          ) or hasNoRequestServer
+        if isRequestUrlSameAsBaseUrlServer
+          # send the auth credentials
+          request.setRequestHeader &#x27;Authorization&#x27;, @makeHTTPBasicAuthHeader(credentials)
+        # point the request to the proper server
+        if !AP.useMockServer and AP.baseUrl and hasNoRequestServer
+          # if no host or protocol, add the base URL
+          _.extend settings,
+            crossDomain: true
+            url: &quot;#{AP.baseUrl}#{settings.url}&quot;
+            xhrFields: _.extend {}, settings.xhrFields, {withCredentials: true}
+      success: (response, status, xhr) =&gt;
+        # save auth session data into store
+        if response
+          @store.set @getAuthSessionDataKey(), response, 7
+        # save auth session ID into store
+        sessionId = xhr.getResponseHeader @getAuthSessionIdHeaderName()
+        if !sessionId and settings.session_id_field?
+          sessionId = response?[settings.session_id_field]
+        if sessionId
+          @store.set @getAuthSessionIdKey(), sessionId, 7
+        # successful login requires auth session data and an auth session ID
+        if response and sessionId
+          ###*
+          @event &#x27;auth:authenticated&#x27;
+          An authenticated event is triggered after a successful login.
+          ###
+          @trigger &#x27;auth:authenticated&#x27;
+        else
+          @trigger &#x27;auth:error&#x27;
+      error: =&gt;
+        ###*
+        @event &#x27;auth:error&#x27;
+        An auth error event is triggered if a login or logout fails for
+        any reason.
+        ###
+        @trigger &#x27;auth:error&#x27;
+  
+  ###*
+  Performs deauthentication request.  Upon a successful logout, stored user data
+  is removed.
+  @method deauthenticate
+  @static
+  ###
+  @deauthenticate: () -&gt;
+    AP = window.AP
+    settings = @getAuthenticationSettings()
+    $.ajax
+      url: settings.deauthentication_url #+ &#x27;.json&#x27;
+      type: &#x27;POST&#x27;
+      dataType: &#x27;text&#x27;
+      beforeSend: (request, settings) =&gt;
+        baseUrl = AP.utility.Url.parseUrl AP.baseUrl
+        requestUrl = AP.utility.Url.parseUrl settings.url
+        hasNoRequestServer = !(requestUrl.host and requestUrl.protocol)
+        isRequestUrlSameAsBaseUrlServer =
+          (
+            (baseUrl.protocol == requestUrl.protocol) and
+            (baseUrl.host == requestUrl.host) and
+            (baseUrl.port == requestUrl.port)
+          ) or hasNoRequestServer
+        if isRequestUrlSameAsBaseUrlServer
+          # send the session ID with the deauthentication request
+          authSessionIdHeader = @getAuthSessionIdHeaderName()
+          authSessionId = @getAuthSessionId()
+          request.setRequestHeader(authSessionIdHeader, authSessionId) if authSessionId
+        # point the request to the proper server
+        if !AP.useMockServer and AP.baseUrl and hasNoRequestServer
+          # if no host or protocol, add the base URL
+          _.extend settings,
+            crossDomain: true
+            url: &quot;#{AP.baseUrl}#{settings.url}&quot;
+            xhrFields: _.extend {}, settings.xhrFields, {withCredentials: true}
+      complete: (response) =&gt; @destroySession()
+  
+  ###*
+  Destroys session by deleting data in auth store.
+  @private
+  @method destroySession
+  @static
+  ###
+  @destroySession: -&gt;
+    # delete auth data
+    @store.remove @getAuthSessionDataKey()
+    @store.remove @getAuthSessionIdKey()
+    ###*
+    @event auth:deauthenticated
+    A deauthenticated event is triggered after the session is destroyed.
+    ###
+    @trigger &#x27;auth:deauthenticated&#x27;
+  
+  ###*
+  Returns the name of the custom session ID header.
+  @method getAuthSessionIdHeaderName
+  @static
+  ###
+  @getAuthSessionIdHeaderName: -&gt; @_authSessionIdHeaderName
+  
+  ###*
+  Builds a base-URL-specific auth key.  Since multiple apps may
+  sometimes be served from the same domain, auth keys must include the name
+  of the base URL (API server) in the key name for uniqueness.
+  @private
+  @method getAuthSessionDataKey
+  @static
+  @return {String} auth store key, unique by base URL
+  ###
+  @getAuthSessionDataKey: -&gt;
+    baseName = &#x27;session&#x27;
+    baseUrl = AP.baseUrl.replace(/[^a-zA-Z\-0-9]/g, &#x27;&#x27;) if AP.baseUrl
+    if baseUrl then &quot;#{baseName}-#{baseUrl}&quot; else baseName
+  
+  ###*
+  Builds a key name from &#x60;getAuthSessionDataKey&#x60; with &#x60;-session-id&#x60; appended.
+  @private
+  @static
+  @method getAuthSessionIdKey
+  @return {String} auth session ID key name
+  ###
+  @getAuthSessionIdKey: -&gt; &quot;#{@getAuthSessionDataKey()}-id&quot;
+  
+  ###*
+  Returns the auth session data (a user) from auth store if logged in.
+  @method getAuthSessionData
+  @static
+  @return {Object/null} the authenticated user object
+  ###
+  @getAuthSessionData: -&gt;
+    @store.get @getAuthSessionDataKey()
+  
+  ###*
+  Returns the lookup field value (username) of the currently logged-in user.
+  @return {Object/null} the authenticated user&#x27;s lookup field value (username)
+  ###
+  @getUsername: -&gt;
+    settings = @getAuthenticationSettings()
+    credentials = @getAuthSessionData()
+    credentials?[settings?.lookup_field]
+  
+  ###*
+  Returns the role(s) of the currently logged-in user.
+  @return {Object/null} the authenticated user&#x27;s role(s)
+  ###
+  @getUserRole: -&gt;
+    settings = @getAuthenticationSettings()
+    credentials = @getAuthSessionData()
+    credentials?[settings?.role_field]
+  
+  ###*
+  Returns the auth ID from auth store.
+  @private
+  @static
+  @method getAuthSessionId
+  @return {String/null} the current session ID
+  ###
+  @getAuthSessionId: -&gt;
+    data = @store.get @getAuthSessionIdKey()
+  
+  ###*
+  @private
+  @static
+  @method getAuthenticationSettings
+  @return {Object/null} the authenticatable object if one is specified.
+  Otherwise null.
+  ###
+  @getAuthenticationSettings: -&gt; @authenticationSettings or null
+  
+  ###*
+  @private
+  @static
+  @method getAuthenticatableObject
+  @return {Object/null} the model specified as the authenticatable object if one
+  is specified.  Otherwise null.
+  ###
+  @getAuthenticatableObject: -&gt;
+    window.AP.getActiveApp().getModel(@getAuthenticationSettings()?.object_definition_id)
+  
+  ###*
+  Builds a Base64-encoded HTTP basic auth header for use in an
+  authentication request.
+  @private
+  @static
+  @method makeHTTPBasicAuthHeader
+  @param {Object} credentials the user credentials
+  @return {String} Base-64 encoded HTTP basic auth header with user credentials
+  ###
+  @makeHTTPBasicAuthHeader: (credentials) -&gt;
+    settings = @getAuthenticationSettings()
+    lookup = credentials[settings.lookup_field]
+    match = credentials[settings.match_field]
+    &quot;Basic #{AP.utility.Base64.encode [lookup, match].join(&#x27;:&#x27;)}&quot;
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

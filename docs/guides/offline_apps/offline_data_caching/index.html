@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Caching Data for Offline Viewing | Offline Apps | SDK Documentation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+</head>
+<body>
+  <!--[if lt IE 8]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>
+        <small>SDK Documentation - Offline Apps</small>
+        <br>
+        Caching Data for Offline Viewing
+      </h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <ol class="breadcrumb">
+          <li><a href="../../../index.html">Home</a></li>
+          <li class="active">Offline Apps</li>
+          <li class="active">Caching Data for Offline Viewing</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <p>Offline data caching, enabled automatically in the SDK, caches API requests.  Data caching is enabled by default:  no developer effort is required.  Data caching is pass-through:  cached results are used <em>only when offline</em>.</p>
+
+<p>When an API request succeeds, the results are stored in a <em>local storage</em> cache (using the best available backend, see below).  Fresh data is always used if its available.  When the user is online and the server is responding, API requests are made as usual.  If a request fails (for instance because the user is offline or a server is down), cached data are used instead.</p>
+
+<p>Cached results are <em>not returned for responses in the 400-range</em>.  Cache items are expired after 7 days by default.  Cache items are keyed by server, current user (if any), and URL.</p>
+
+<h2>GET Requests Only</h2>
+
+<p>Offline caching applies only to <code>GET</code> requests, since it is readily automated across many kinds of projects.  Other types of requests are not cached because synchronization is a complex problem and because needs vary.</p>
+
+<p>If you generated an HTML5 app with this SDK, you have access to the library <a href="https://github.com/hubspot/offline">Offline.js</a>.  Offline.js is capable of caching <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> requests when users are offline.  While it is disabled by default, interested developers may implement custom synchronization based on Offline.js.</p>
+
+<h2>Underlaying Storage</h2>
+
+<p>Offline data caching is based on the library <a href="https://github.com/tantaman/LargeLocalStorage">large local storage</a>.  It provides a unified API for accessing the best available local storage backend.  For the most capable browsers, this means <code>FilesystemAPI</code>.  In other browsers backends are used as available, including <code>IndexedDB</code>, <code>WebSQL</code>, and <code>localstorage</code>.</p>
+      </div>
+    </div>
+    
+    <hr>
+  </div>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>
